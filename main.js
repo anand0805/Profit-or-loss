@@ -1,39 +1,33 @@
-const initialPrice = document.querySelector("#initial-price");
-const stocksQuantity = document.querySelector("#stocks-quantity");
-const currentPrice = document.querySelector("#current-price");
-const submitBtn = document.querySelector("#submit-btn");
-const outputBox = document.querySelector("#output-box");
+var initialPrice = document.querySelector("#initial-price");
+var NoOfStock = document.querySelector("#stocks-quantity");
+var currentPrice = document.querySelector("#current-price");
+var clickButton = document.querySelector(".btn-check");
+var outputHere = document.querySelector(".output")
 
-submitBtn.addEventListener("click", submitHandler);
+clickButton.addEventListener("click", typeCasting)
 
-function submitHandler() {
-    var ip = Number(initialPrice.value);
-    var qty = Number(stocksQuantity.value);
-    var curr = Number(currentPrice.value);
-
-    calculateProfitAndLoss(ip, qty, curr);
+function typeCasting() {
+    var itl = Number(initialPrice.value);
+    var qty = Number(NoOfStock.value);
+    var crt = Number(currentPrice.value);
+    calculate(itl, qty, crt);
 }
 
-function calculateProfitAndLoss(initial, quantity, current) {
+function calculate(initial, stocks, current) {
     if (initial > current) {
-        var loss = (initial - current) * quantity;
-        var lossPercentage = (loss / initial) * 100;
+        var loss = (initial - current) * stocks;
+        var losspercentage = (loss / initial) * 100;
+        showMessage(`Hey, Your loss is ${loss} and loss percentage is ${losspercentage}%`);
 
-        showOutput(
-            `Hey, the loss is ${loss} and the percent is ${lossPercentage}%`
-        );
-    } else if (current > initial) {
-        var profit = (current - initial) * quantity;
-        var profitPercentage = (profit / initial) * 100;
-
-        showOutput(
-            `Hey, your profit is ${profit} and percent is ${profitPercentage}% `
-        );
+    } else if (initial < current) {
+        var profit = (current - initial) * stocks;
+        var profitPercent = (profit / initial) * 100;
+        showMessage(`Hey, your profit is ${profit} and profit percentage is ${profitPercent}%`);
     } else {
-        showOutput(`Enter your stocks Quantity and their price`);
+        showMessage("Please enter your stocks and price");
     }
 }
 
-function showOutput(message) {
-    outputBox.innerHTML = message;
+function showMessage(message) {
+    outputHere.innerText = message;
 }
